@@ -3,13 +3,16 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static"
+      "use": "@vercel/static",
+      "config": {
+        "distDir": "dist/frontend-finder-alt-project"
+      }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/dist/frontend-finder-alt-project/index.html"
+      "dest": "/index.html"
     }
   ]
 }
