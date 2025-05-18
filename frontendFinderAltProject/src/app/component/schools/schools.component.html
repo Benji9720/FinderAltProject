@@ -1,0 +1,16 @@
+<div class="school-container">
+  <h2>{{ school.name }}</h2>
+
+  <div class="school-info">
+    <p><strong>Adresse :</strong> {{ school.address }}</p>
+    <p><strong>Email :</strong> {{ school.contact }}</p>
+    <p><strong>Téléphone :</strong> {{ school.phone }}</p>
+    <p><strong>Description :</strong> {{ school.description }}</p>
+  </div>
+
+  <div class="school-actions">
+    <button (click)="goToMessageSchool()">Contacter</button>
+    <button (click)="togglePlanning()">Voir le planning</button>
+
+  </div>
+</div>

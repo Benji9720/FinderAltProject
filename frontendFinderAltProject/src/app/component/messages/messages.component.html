@@ -1,0 +1,32 @@
+<div class="messages-container">
+  <!-- LISTE DES ENTREPRISES -->
+  <ng-container *ngIf="!selectedConversation">
+    <h2>Conversations</h2>
+    <ul class="conversation-list">
+      <li *ngFor="let conv of conversations" (click)="openConversation(conv)">
+        <strong>{{ conv.companyName }}</strong>
+        <p>{{ conv.messages[conv.messages.length - 1].content }}</p>
+
+      </li>
+    </ul>
+  </ng-container>
+
+  <!-- CONVERSATION -->
+  <ng-container *ngIf="selectedConversation">
+    <div class="conversation-header">
+      <button class="back-btn" (click)="backToList()">←</button>
+      <h3>{{ selectedConversation.companyName }}</h3>
+    </div>
+
+    <div class="chat-box">
+      <div *ngFor="let msg of selectedConversation.messages" [ngClass]="msg.from">
+        <span>{{ msg.content }}</span>
+      </div>
+    </div>
+
+    <div class="input-box">
+      <input type="text" [(ngModel)]="newMessage" placeholder="Écrire un message..." />
+      <button (click)="sendMessage()">Envoyer</button>
+    </div>
+  </ng-container>
+</div>

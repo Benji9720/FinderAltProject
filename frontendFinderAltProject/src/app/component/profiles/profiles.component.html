@@ -1,0 +1,36 @@
+<div class="profile-container">
+  <h2>Mon Profil</h2>
+
+  <div class="profile-field">
+    <label>Nom :</label>
+    <input *ngIf="editMode" [(ngModel)]="nom" />
+    <p *ngIf="!editMode">{{ nom }}</p>
+  </div>
+
+  <div class="profile-field">
+    <label>Email :</label>
+    <input *ngIf="editMode" [(ngModel)]="email" />
+    <p *ngIf="!editMode">{{ email }}</p>
+  </div>
+
+  <div class="profile-field">
+    <label>Rôle :</label>
+    <select *ngIf="editMode" [(ngModel)]="role">
+      <option>Alternant</option>
+      <option>Entreprise</option>
+      <option>École</option>
+    </select>
+    <p *ngIf="!editMode">{{ role }}</p>
+  </div>
+
+  <div class="profile-field">
+    <label>Bio :</label>
+    <textarea *ngIf="editMode" [(ngModel)]="bio"></textarea>
+    <p *ngIf="!editMode">{{ bio }}</p>
+  </div>
+
+  <div class="profile-actions">
+    <button (click)="toggleEdit()">{{ editMode ? 'Annuler' : 'Modifier' }}</button>
+    <button *ngIf="editMode" (click)="saveProfile()">Sauvegarder</button>
+  </div>
+</div>

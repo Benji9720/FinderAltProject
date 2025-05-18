@@ -1,0 +1,20 @@
+<div class="match-container">
+  <div class="card" #card *ngIf="currentOffre">
+
+    <div class="card-text">
+      <h3>{{ currentOffre.titre }}</h3>
+      <p>{{ currentOffre.entreprise }}</p>
+    </div>
+  </div>
+
+  <div class="action-buttons" *ngIf="currentOffre">
+    <button class="reject-btn">✖</button>
+    <button class="star-btn">★</button>
+    <button class="accept-btn">✔</button>
+  </div>
+
+  <div class="match-message" id="matchMessage">❤️ Match</div>
+  <div class="decline-message" id="declineMessage">💔 Rejeté</div>
+
+  <p *ngIf="!currentOffre" class="no-more">Plus d'offres disponibles.</p>
+</div>

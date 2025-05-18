@@ -1,0 +1,9 @@
+<div class="planning-container">
+  <h2>Planning Semaine</h2>
+
+  <div class="planning-card" *ngFor="let item of schedule">
+    <h3>{{ item.day }}</h3>
+    <p><strong>Activité :</strong> {{ item.event }}</p>
+    <p><strong>Heure :</strong> {{ item.time }}</p>
+  </div>
+</div>
