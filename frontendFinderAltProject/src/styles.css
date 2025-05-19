@@ -1,9 +1,38 @@
-html, body {
+html {
+  height: 100%;
+}
+
+body {
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow-x: hidden;
-  background-color: #121212; /* fond global foncé */
-  font-family: 'Segoe UI', Roboto, sans-serif;
+  background-color: #1c1c1c;
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto; /* Permet le défilement vertical si nécessaire */
+  overflow-x: hidden; /* Empêche le défilement horizontal */
+  padding-bottom: 70px; /* Réserve un espace pour la navbar */
+  box-sizing: border-box;
+  color: white;
+  font-family: sans-serif;
+}
+
+/* Classe utilitaire pour désactiver le scroll quand nécessaire */
+.no-scroll {
+  overflow: hidden !important;
+}
+
+/* Pour masquer la barre de défilement tout en permettant le scroll */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Style global pour les conteneurs principaux */
+.main-container {
+  padding-bottom: 86px; /* Espace pour éviter que la navbar cache le contenu */
+}
+
+/* Pour assurer que le contenu est toujours visible au-dessus de la navbar */
+router-outlet + * {
+  padding-bottom: 70px;
 }

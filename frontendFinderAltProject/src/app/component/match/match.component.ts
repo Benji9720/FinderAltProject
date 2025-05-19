@@ -4,7 +4,8 @@ import {
   OnInit,
   ElementRef,
   ViewChild,
-  AfterViewInit
+  AfterViewInit,
+  OnDestroy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -24,7 +25,7 @@ interface Offre {
   templateUrl: './match.component.html',
   styleUrls: ['./match.component.css']
 })
-export class MatchComponent implements OnInit, AfterViewInit {
+export class MatchComponent implements OnInit, AfterViewInit, OnDestroy {
   offres: Offre[] = [];
   currentOffre: Offre | null = null;
 
@@ -37,6 +38,7 @@ export class MatchComponent implements OnInit, AfterViewInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+    // Données d'exemple pour les offres
     this.offres = [
       { id: 1, titre: 'Data Analyst', entreprise: 'DataPlus', imageUrl: 'https://picsum.photos/400/300?1' },
       { id: 2, titre: 'Dev Fullstack', entreprise: 'OpenTech', imageUrl: 'https://picsum.photos/400/300?2' },
@@ -44,10 +46,33 @@ export class MatchComponent implements OnInit, AfterViewInit {
       { id: 4, titre: 'Marketing Digital', entreprise: 'WebBuzz', imageUrl: 'https://picsum.photos/400/300?4' }
     ];
     this.currentOffre = this.offres[0];
+
+    // Désactive le défilement sur ce composant si le contenu est suffisamment court
+    this.gestionScroll();
   }
 
   ngAfterViewInit(): void {
     this.setupSwipeListeners();
+  }
+
+  ngOnDestroy(): void {
+    // Réactive le défilement normal lorsqu'on quitte le composant
+    document.body.classList.remove('no-scroll');
+  }
+
+  // Méthode pour gérer dynamiquement le défilement selon la taille du contenu
+  gestionScroll(): void {
+    // Vérifie si le contenu est plus court que la hauteur disponible (sans la navbar)
+    const hauteurDisponible = window.innerHeight - 70; // Moins la navbar
+    const hauteurContenu = document.body.scrollHeight;
+
+    if (hauteurContenu <= hauteurDisponible) {
+      // Le contenu est assez court, on désactive le défilement
+      document.body.classList.add('no-scroll');
+    } else {
+      // Le contenu est plus grand, on permet le défilement
+      document.body.classList.remove('no-scroll');
+    }
   }
 
   setupSwipeListeners(): void {
@@ -110,7 +135,13 @@ export class MatchComponent implements OnInit, AfterViewInit {
     if (this.offres.length > 0) {
       this.offres.shift();
       this.currentOffre = this.offres[0] || null;
-      setTimeout(() => this.setupSwipeListeners(), 300);
+
+      if (this.currentOffre) {
+        setTimeout(() => this.setupSwipeListeners(), 300);
+      }
+
+      // Vérifie à nouveau si le défilement est nécessaire
+      setTimeout(() => this.gestionScroll(), 350);
     }
   }
 
